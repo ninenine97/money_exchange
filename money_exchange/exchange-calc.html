@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+		/>
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Document</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<style></style>
+	</head>
+	<body class="">
+		<div class="container">
+			<div class="row my-3">
+				<div class="text-center my-5 text-info">
+					<h2>Money Changer</h2>
+				</div>
+				<div class="col-lg-4">
+					<div class="">
+						<div
+							class="
+								d-flex
+								border
+								rounded
+								p-3
+								mb-3
+								align-items-end
+								justify-content-between
+							"
+						>
+							<small class="text-black-50" id="result1"></small>
+							<h2 class="mb-0" id="result2">0</h2>
+						</div>
+						<form action="" id="calcFrom">
+							<div class="mb-3">
+								<label class="form-label">Amount</label>
+								<input
+									type="text"
+									id="input"
+									class="form-control form-control-lg text-end"
+									required
+								/>
+							</div>
+
+							<div class="row mb-3">
+								<div class="col-6">
+									<label class="form-label">From</label>
+									<select class="form-select" name="" id="from"></select>
+								</div>
+
+								<div class="col-6">
+									<label class="form-label">To</label>
+									<select class="form-select" name="" id="to"></select>
+								</div>
+							</div>
+
+							<button id="calculate" class="btn btn-primary w-100">
+								Calculate
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="col-12 col-lg-8">
+					<table class="table table-bordered table-hover">
+						<thead>
+							<tr>
+								<th>No</th>
+								<th>Amount</th>
+								<th>From Currency</th>
+								<th>To Currency</th>
+								<th>Result</th>
+							</tr>
+						</thead>
+						<tbody id="records"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+		<script>
+			alert("Please Connect to the Internet");
+			let input = document.getElementById("input");
+			let from = document.getElementById("from");
+			let to = document.getElementById("to");
+			let result1 = document.getElementById("result1");
+			let result2 = document.getElementById("result2");
+			let records = document.getElementById("records");
+
+			let data = {
+				result: "success",
+				documentation: "https://www.exchangerate-api.com/docs",
+				terms_of_use: "https://www.exchangerate-api.com/terms",
+				time_last_update_unix: 1625184001,
+				time_last_update_utc: "Fri, 02 Jul 2021 00:00:01 +0000",
+				time_next_update_unix: 1625270401,
+				time_next_update_utc: "Sat, 03 Jul 2021 00:00:01 +0000",
+				base_code: "USD",
+				conversion_rates: {
+					USD: 1,
+					AED: 3.6725,
+					AFN: 79.4101,
+					ALL: 102.7774,
+					AMD: 495.7646,
+					ANG: 1.79,
+					AOA: 651.034,
+					ARS: 95.6549,
+					AUD: 1.3356,
+					AWG: 1.79,
+					AZN: 1.6962,
+					BAM: 1.6458,
+					BBD: 2.0,
+					BDT: 84.6117,
+					BGN: 1.6458,
+					BHD: 0.376,
+					BIF: 1974.4243,
+					BMD: 1.0,
+					BND: 1.3456,
+					BOB: 6.8869,
+					BRL: 4.9687,
+					BSD: 1.0,
+					BTN: 74.4606,
+					BWP: 10.9025,
+					BYN: 2.5291,
+					BZD: 2.0,
+					CAD: 1.2384,
+					CDF: 1988.6189,
+					CHF: 0.9254,
+					CLP: 730.3693,
+					CNY: 6.4659,
+					COP: 3774.0493,
+					CRC: 618.1981,
+					CUC: 1.0,
+					CUP: 25.75,
+					CVE: 92.7859,
+					CZK: 21.5445,
+					DJF: 177.721,
+					DKK: 6.2778,
+					DOP: 56.9388,
+					DZD: 134.0572,
+					EGP: 15.6546,
+					ERN: 15.0,
+					ETB: 43.8828,
+					EUR: 0.8416,
+					FJD: 2.0688,
+					FKP: 0.7237,
+					FOK: 6.2778,
+					GBP: 0.7237,
+					GEL: 3.162,
+					GGP: 0.7237,
+					GHS: 5.8702,
+					GIP: 0.7237,
+					GMD: 51.987,
+					GNF: 9819.7693,
+					GTQ: 7.7318,
+					GYD: 209.1152,
+					HKD: 7.7634,
+					HNL: 23.8751,
+					HRK: 6.3401,
+					HTG: 91.7965,
+					HUF: 297.1055,
+					IDR: 14553.2677,
+					ILS: 3.2764,
+					IMP: 0.7237,
+					INR: 74.4611,
+					IQD: 1459.3897,
+					IRR: 41980.9187,
+					ISK: 123.627,
+					JMD: 149.4637,
+					JOD: 0.709,
+					JPY: 111.4124,
+					KES: 107.7367,
+					KGS: 84.6218,
+					KHR: 4073.1519,
+					KID: 1.3356,
+					KMF: 413.9813,
+					KRW: 1131.9277,
+					KWD: 0.2996,
+					KYD: 0.8333,
+					KZT: 426.4069,
+					LAK: 9471.1199,
+					LBP: 1507.5,
+					LKR: 199.0398,
+					LRD: 171.0465,
+					LSL: 14.3632,
+					LYD: 4.5059,
+					MAD: 8.9139,
+					MDL: 17.9946,
+					MGA: 3930.9848,
+					MKD: 51.8735,
+					MMK: 1643.163,
+					MNT: 2855.1846,
+					MOP: 7.9963,
+					MRU: 36.1584,
+					MUR: 42.6288,
+					MVR: 15.3945,
+					MWK: 805.5683,
+					MXN: 19.9907,
+					MYR: 4.1543,
+					MZN: 63.8327,
+					NAD: 14.3632,
+					NGN: 423.5955,
+					NIO: 35.0646,
+					NOK: 8.6069,
+					NPR: 119.137,
+					NZD: 1.4322,
+					OMR: 0.3845,
+					PAB: 1.0,
+					PEN: 3.8565,
+					PGK: 3.5027,
+					PHP: 49.2345,
+					PKR: 157.4099,
+					PLN: 3.8098,
+					PYG: 6718.7368,
+					QAR: 3.64,
+					RON: 4.1506,
+					RSD: 98.9982,
+					RUB: 73.0192,
+					RWF: 1004.8222,
+					SAR: 3.75,
+					SBD: 7.8876,
+					SCR: 15.044,
+					SDG: 452.4108,
+					SEK: 8.5634,
+					SGD: 1.3456,
+					SHP: 0.7237,
+					SLL: 10270.9479,
+					SOS: 578.7771,
+					SRD: 20.8461,
+					SSP: 177.634,
+					STN: 20.6163,
+					SYP: 1472.4713,
+					SZL: 14.3632,
+					THB: 32.0758,
+					TJS: 11.3421,
+					TMT: 3.4991,
+					TND: 2.763,
+					TOP: 2.2336,
+					TRY: 8.6784,
+					TTD: 6.7605,
+					TVD: 1.3356,
+					TWD: 27.8731,
+					TZS: 2316.1491,
+					UAH: 27.3295,
+					UGX: 3550.9508,
+					UYU: 43.4562,
+					UZS: 10570.2314,
+					VES: 3228825.6725,
+					VND: 22959.4932,
+					VUV: 109.9183,
+					WST: 2.5426,
+					XAF: 551.9751,
+					XCD: 2.7,
+					XDR: 0.7022,
+					XOF: 551.9751,
+					XPF: 100.4156,
+					YER: 250.193,
+					ZAR: 14.3634,
+					ZMW: 22.6061,
+				},
+			};
+			let currencyName = Object.keys(data.conversion_rates);
+
+			currencyName.map((x) => {
+				from.innerHTML += `<option value="${x}">${x}</option>`;
+				to.innerHTML += `<option value="${x}">${x}</option>`;
+			});
+
+			document
+				.getElementById("calcFrom")
+				.addEventListener("submit", function (e) {
+					e.preventDefault();
+
+					//input
+					let inputValue = Number(input.value);
+					let fromValue = from.value;
+					let toValue = to.value;
+					console.log(inputValue, fromValue, toValue);
+
+					//process
+					let toUsd = inputValue / data.conversion_rates[fromValue]; //input currency to usd
+					let output = toUsd * data.conversion_rates[toValue];
+					let result = output.toFixed(2);
+
+					console.log(output);
+
+					//output
+					result1.innerHTML = `${fromValue} to ${toValue}`;
+					result2.innerHTML = result;
+					records.innerHTML += `<tr>
+                                <td>${
+																	document.querySelectorAll("#records tr")
+																		.length + 1
+																}</td>
+                                <td>${inputValue}</td>
+                                <td>${fromValue}</td>
+                                <td>${toValue}</td>
+                                <td>${result} ${toValue}</td>
+                            </tr>`;
+				});
+		</script>
+	</body>
+</html>
